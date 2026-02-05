@@ -1,0 +1,198 @@
+.hero {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #000000;
+    overflow: hidden;
+}
+
+/* Tagline at top center */
+.tagline {
+    position: absolute;
+    top: 2.5rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--color-text-primary);
+}
+
+.tagline em {
+    font-style: italic;
+}
+
+/* Middle section with logo elements */
+.middle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+}
+
+.logoLeft {
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--color-text-primary);
+}
+
+.logoRight {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-text-primary);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Large name typography */
+.nameContainer {
+    position: absolute;
+    bottom: 5rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.firstName {
+    font-size: clamp(5rem, 15vw, 14rem);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+.lastName {
+    font-size: clamp(5rem, 15vw, 14rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-text-primary);
+    line-height: 1;
+}
+
+/* Footer */
+.footer {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 3rem;
+    right: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footerLeft {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+}
+
+.footerCenter {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.footerCenter a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    transition: color var(--transition-fast);
+}
+
+.footerCenter a:hover {
+    color: var(--color-text-primary);
+}
+
+.footerDivider {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.footerRight {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footerRight a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    transition: color var(--transition-fast);
+}
+
+.footerRight a:hover {
+    color: var(--color-text-primary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .middle {
+        padding: 0 2rem;
+    }
+
+    .footer {
+        left: 2rem;
+        right: 2rem;
+    }
+
+    .firstName,
+    .lastName {
+        font-size: clamp(2.5rem, 10vw, 6rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .tagline {
+        font-size: 0.85rem;
+        white-space: normal;
+        width: 90%;
+    }
+
+    .nameContainer {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        bottom: 6rem;
+    }
+
+    .footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        left: 1rem;
+        right: 1rem;
+    }
+
+    .footerCenter {
+        position: static;
+        transform: none;
+    }
+
+    .footerRight {
+        gap: 1rem;
+    }
+}

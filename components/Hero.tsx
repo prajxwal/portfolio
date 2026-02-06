@@ -7,8 +7,6 @@ import styles from './Hero.module.css';
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
     const taglineRef = useRef<HTMLParagraphElement>(null);
-    const logoLeftRef = useRef<HTMLSpanElement>(null);
-    const logoRightRef = useRef<HTMLSpanElement>(null);
     const nameRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
 
@@ -22,6 +20,7 @@ export default function Hero() {
                 timeZone: 'Asia/Kolkata',
                 hour: '2-digit',
                 minute: '2-digit',
+                second: '2-digit',
                 hour12: true
             }).toUpperCase();
             setCurrentTime(istTime);
@@ -36,7 +35,6 @@ export default function Hero() {
         const ctx = gsap.context(() => {
             // Initial states
             gsap.set(taglineRef.current, { opacity: 0, y: -30 });
-            gsap.set([logoLeftRef.current, logoRightRef.current], { opacity: 0 });
             gsap.set(nameRef.current, { opacity: 0, y: 50 });
             gsap.set(footerRef.current, { opacity: 0, y: 20 });
 
@@ -50,19 +48,13 @@ export default function Hero() {
                 duration: 1,
                 ease: 'power3.out',
             })
-                // Animate logos
-                .to([logoLeftRef.current, logoRightRef.current], {
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: 'power2.out',
-                }, '-=0.5')
                 // Animate name
                 .to(nameRef.current, {
                     opacity: 1,
                     y: 0,
                     duration: 1.2,
                     ease: 'power4.out',
-                }, '-=0.6')
+                }, '-=0.5')
                 // Animate footer
                 .to(footerRef.current, {
                     opacity: 1,
@@ -83,12 +75,6 @@ export default function Hero() {
                 <em>A Creative Developer</em> building digital experiences
                 <br />that leave a lasting impression.
             </p>
-
-            {/* Middle section with logo elements */}
-            <div className={styles.middle}>
-                <span className={styles.logoLeft} ref={logoLeftRef}>P</span>
-                <span className={styles.logoRight} ref={logoRightRef}>J</span>
-            </div>
 
             {/* Large name at bottom */}
             <div className={styles.nameContainer} ref={nameRef}>

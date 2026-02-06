@@ -1,12 +1,17 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import Hero from '@/components/Hero';
 import Section from '@/components/Section';
+import Preloader from '@/components/Preloader';
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
+    if (isLoading) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -23,10 +28,11 @@ export default function Home() {
     return () => {
       lenis.destroy();
     };
-  }, []);
+  }, [isLoading]);
 
   return (
     <main>
+      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       <Hero />
       <Section id="work" title="WORK" />
       <Section id="about" title="INFO" />

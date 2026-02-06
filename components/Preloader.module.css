@@ -1,0 +1,48 @@
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: all;
+}
+
+.half {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 50%;
+    background: #000000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.halfBottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50%;
+    background: #000000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.text {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 500;
+    color: var(--color-text-primary);
+    letter-spacing: 0.1em;
+    line-height: 1;
+}
+
+.half .text {
+    transform: translateY(50%);
+}
+
+.halfBottom .text {
+    transform: translateY(-50%);
+}

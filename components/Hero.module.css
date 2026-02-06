@@ -60,7 +60,7 @@
 /* Large name typography */
 .nameContainer {
     position: absolute;
-    bottom: 5rem;
+    bottom: 4rem;
     left: 0;
     right: 0;
     display: flex;
@@ -68,15 +68,14 @@
     align-items: baseline;
     gap: 0.3rem;
     width: 100%;
-    max-width: 100vw;
-    overflow: hidden;
+    padding-bottom: 0.5rem;
 }
 
 .firstName {
     font-size: clamp(2rem, 5.5vw, 6rem);
     font-weight: 700;
     color: var(--color-text-primary);
-    line-height: 1;
+    line-height: 1.1;
 }
 
 .lastName {
@@ -84,7 +83,7 @@
     font-weight: 300;
     font-style: italic;
     color: var(--color-text-primary);
-    line-height: 1;
+    line-height: 1.1;
 }
 
 /* Footer */

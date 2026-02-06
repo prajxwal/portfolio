@@ -66,18 +66,21 @@
     display: flex;
     justify-content: center;
     align-items: baseline;
-    gap: 0.5rem;
+    gap: 0.3rem;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 .firstName {
-    font-size: clamp(5rem, 15vw, 14rem);
+    font-size: clamp(2rem, 5.5vw, 6rem);
     font-weight: 700;
     color: var(--color-text-primary);
     line-height: 1;
 }
 
 .lastName {
-    font-size: clamp(5rem, 15vw, 14rem);
+    font-size: clamp(2rem, 5.5vw, 6rem);
     font-weight: 300;
     font-style: italic;
     color: var(--color-text-primary);

@@ -77,7 +77,7 @@ export default function Hero() {
     }, []);
 
     return (
-        <section className={styles.hero} ref={heroRef}>
+        <section id="home" className={styles.hero} ref={heroRef}>
             {/* Tagline at top center */}
             <p className={styles.tagline} ref={taglineRef}>
                 <em>A Creative Developer</em> building digital experiences
@@ -102,11 +102,9 @@ export default function Hero() {
                     <span>INDIA {currentTime}</span>
                 </div>
                 <div className={styles.footerCenter}>
-                    <a href="https://github.com" target="_blank" rel="noopener noreferrer">GITHUB</a>
+                    <a href="https://github.com/prajxwal" target="_blank" rel="noopener noreferrer">GITHUB</a>
                     <span className={styles.footerDivider}>/</span>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-                    <span className={styles.footerDivider}>/</span>
-                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">TWITTER</a>
+                    <a href="https://www.linkedin.com/in/prajwaljayaram/" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
                 </div>
                 <nav className={styles.footerRight}>
                     <a href="#home">HOME</a>

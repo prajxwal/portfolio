@@ -33,7 +33,7 @@ export default function Home() {
   return (
     <main>
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
-      <Hero />
+      <Hero animateIn={!isLoading} />
       <Section id="work" title="WORK" />
       <Section id="about" title="INFO" />
       <Section id="contact" title="CONTACT" />

@@ -4,11 +4,16 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import styles from './Hero.module.css';
 
-export default function Hero() {
+interface HeroProps {
+    animateIn?: boolean;
+}
+
+export default function Hero({ animateIn = true }: HeroProps) {
     const heroRef = useRef<HTMLDivElement>(null);
     const taglineRef = useRef<HTMLParagraphElement>(null);
     const nameRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
+    const hasAnimated = useRef(false);
 
     const [currentTime, setCurrentTime] = useState('');
 
@@ -31,30 +36,35 @@ export default function Hero() {
         return () => clearInterval(interval);
     }, []);
 
+    // Set initial hidden state
     useEffect(() => {
+        gsap.set(taglineRef.current, { opacity: 0, y: -50 });
+        gsap.set(nameRef.current, { opacity: 0, y: 80 });
+        gsap.set(footerRef.current, { opacity: 0, y: 30 });
+    }, []);
+
+    // Animate when animateIn becomes true
+    useEffect(() => {
+        if (!animateIn || hasAnimated.current) return;
+        hasAnimated.current = true;
+
         const ctx = gsap.context(() => {
-            // Initial states
-            gsap.set(taglineRef.current, { opacity: 0, y: -30 });
-            gsap.set(nameRef.current, { opacity: 0, y: 50 });
-            gsap.set(footerRef.current, { opacity: 0, y: 20 });
+            const tl = gsap.timeline({ delay: 0.2 });
 
-            // Create timeline
-            const tl = gsap.timeline({ delay: 0.3 });
-
-            // Animate tagline
+            // Animate tagline sliding down
             tl.to(taglineRef.current, {
                 opacity: 1,
                 y: 0,
                 duration: 1,
                 ease: 'power3.out',
             })
-                // Animate name
+                // Animate name sliding up with stagger effect
                 .to(nameRef.current, {
                     opacity: 1,
                     y: 0,
                     duration: 1.2,
                     ease: 'power4.out',
-                }, '-=0.5')
+                }, '-=0.6')
                 // Animate footer
                 .to(footerRef.current, {
                     opacity: 1,
@@ -66,7 +76,7 @@ export default function Hero() {
         }, heroRef);
 
         return () => ctx.revert();
-    }, []);
+    }, [animateIn]);
 
     return (
         <section id="home" className={styles.hero} ref={heroRef}>

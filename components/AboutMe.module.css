@@ -186,11 +186,12 @@
 
 /* Marquee */
 .marqueeWrapper {
-    position: absolute;
-    left: 0;
-    right: 0;
+    position: relative;
+    left: 50%;
+    right: 50%;
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    margin-left: -50vw;
+    margin-right: -50vw;
     overflow: hidden;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);

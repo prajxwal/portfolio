@@ -82,8 +82,8 @@ export default function Hero({ animateIn = true }: HeroProps) {
         <section id="home" className={styles.hero} ref={heroRef}>
             {/* Tagline at top center */}
             <p className={styles.tagline} ref={taglineRef}>
-                <em>A Creative Developer</em> building digital experiences
-                <br />that leave a lasting impression.
+                <em>Schrödinger's Developer:</em> My code is simultaneously brilliant and broken.
+                <br />Let's work together and find out.
             </p>
 
             {/* Large name at bottom */}
@@ -104,8 +104,8 @@ export default function Hero({ animateIn = true }: HeroProps) {
                 </div>
                 <nav className={styles.footerRight}>
                     <a href="#home">HOME</a>
+                    <a href="#about">ABOUT ME</a>
                     <a href="#work">WORK</a>
-                    <a href="#about">INFO</a>
                     <a href="#contact">CONTACT</a>
                 </nav>
             </footer>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 import Hero from '@/components/Hero';
+import AboutMe from '@/components/AboutMe';
 import Section from '@/components/Section';
 import Preloader from '@/components/Preloader';
 
@@ -34,7 +35,7 @@ export default function Home() {
     <main>
       {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
       <Hero animateIn={!isLoading} />
-      <Section id="about" title="ABOUT ME" />
+      <AboutMe />
       <Section id="work" title="WORK" />
       <Section id="contact" title="CONTACT" />
     </main>

@@ -12,19 +12,6 @@
     margin: 0 auto;
 }
 
-/* Scroll Reveal Base */
-.scrollReveal {
-    opacity: 0;
-    transform: translateY(60px);
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.scrollReveal.inView {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 /* Header */
 .header {
     display: flex;
@@ -67,6 +54,7 @@
     font-weight: 500;
     line-height: 1.1;
     color: var(--color-text-primary);
+    perspective: 500px;
 }
 
 .line {
@@ -84,7 +72,6 @@
     flex-direction: column;
     gap: 1.5rem;
     padding-top: 1rem;
-    transition-delay: 0.15s;
 }
 
 .bio {
@@ -117,10 +104,7 @@
     padding: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: transparent;
-    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.4s ease,
-        box-shadow 0.4s ease;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
     position: relative;
     overflow: hidden;
 }
@@ -140,7 +124,7 @@
 
 .skillCard:hover {
     border-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-5px) !important;
+    transform: translateY(-5px);
 }
 
 .skillNumber {
@@ -182,7 +166,7 @@
 .marquee {
     display: flex;
     gap: 3rem;
-    animation: marquee 15s linear infinite;
+    animation: marqueeScroll 15s linear infinite;
     width: max-content;
 }
 
@@ -200,8 +184,7 @@
     opacity: 0.3;
 }
 
-/* Keyframe Animations */
-@keyframes marquee {
+@keyframes marqueeScroll {
     0% {
         transform: translateX(0);
     }

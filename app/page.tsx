@@ -5,6 +5,7 @@ import Lenis from 'lenis';
 import Hero from '@/components/Hero';
 import AboutMe from '@/components/AboutMe';
 import Section from '@/components/Section';
+import Contact from '@/components/Contact';
 import Preloader from '@/components/Preloader';
 
 export default function Home() {
@@ -37,7 +38,8 @@ export default function Home() {
       <Hero animateIn={!isLoading} />
       <AboutMe />
       <Section id="work" title="WORK" />
-      <Section id="contact" title="CONTACT" />
+      <Contact />
     </main>
   );
 }
+

@@ -45,11 +45,13 @@ export default function Work() {
     const heroRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
+
         const ctx = gsap.context(() => {
             gsap.from(headerRef.current, {
                 opacity: 0,
-                y: 40,
-                duration: 1,
+                y: isMobile ? 20 : 40,
+                duration: isMobile ? 0.7 : 1,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: headerRef.current,
@@ -61,7 +63,7 @@ export default function Work() {
             gsap.from(`.${styles.headerLine}`, {
                 scaleX: 0,
                 transformOrigin: 'left center',
-                duration: 1.2,
+                duration: isMobile ? 0.8 : 1.2,
                 ease: 'power3.inOut',
                 scrollTrigger: {
                     trigger: headerRef.current,
@@ -75,10 +77,10 @@ export default function Work() {
             if (heroLines) {
                 gsap.from(heroLines, {
                     opacity: 0,
-                    y: 60,
-                    rotateX: 30,
-                    stagger: 0.12,
-                    duration: 1,
+                    y: isMobile ? 30 : 60,
+                    rotateX: isMobile ? 15 : 30,
+                    stagger: isMobile ? 0.08 : 0.12,
+                    duration: isMobile ? 0.7 : 1,
                     ease: 'power4.out',
                     scrollTrigger: {
                         trigger: heroRef.current,
@@ -104,9 +106,9 @@ export default function Work() {
             {/* Hero Text */}
             <div className={styles.heroText} ref={heroRef}>
                 <h2 className={styles.headline}>
-                    <span className={styles.headlineLine}>Projects that push</span>
-                    <span className={styles.headlineLine}>boundaries & break</span>
-                    <span className={styles.headlineItalic}>the ordinary.</span>
+                    <span className={styles.headlineLine}>Projects</span>
+                    <span className={styles.headlineItalic}>LIVE Below.</span>
+                    <span className={styles.headlineItalic}> </span>
                 </h2>
             </div>
 

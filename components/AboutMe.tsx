@@ -16,12 +16,14 @@ export default function AboutMe() {
     const marqueeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
+
         const ctx = gsap.context(() => {
             // Header animation
             gsap.from(headerRef.current, {
                 opacity: 0,
-                y: 40,
-                duration: 1,
+                y: isMobile ? 20 : 40,
+                duration: isMobile ? 0.7 : 1,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: headerRef.current,
@@ -34,7 +36,7 @@ export default function AboutMe() {
             gsap.from(`.${styles.headerLine}`, {
                 scaleX: 0,
                 transformOrigin: 'left center',
-                duration: 1.2,
+                duration: isMobile ? 0.8 : 1.2,
                 ease: 'power3.inOut',
                 scrollTrigger: {
                     trigger: headerRef.current,
@@ -48,10 +50,10 @@ export default function AboutMe() {
             if (lines) {
                 gsap.from(lines, {
                     opacity: 0,
-                    y: 80,
-                    rotateX: 45,
-                    stagger: 0.15,
-                    duration: 1,
+                    y: isMobile ? 40 : 80,
+                    rotateX: isMobile ? 20 : 45,
+                    stagger: isMobile ? 0.1 : 0.15,
+                    duration: isMobile ? 0.7 : 1,
                     ease: 'power4.out',
                     scrollTrigger: {
                         trigger: headlineRef.current,
@@ -66,9 +68,9 @@ export default function AboutMe() {
             if (bios) {
                 gsap.from(bios, {
                     opacity: 0,
-                    y: 50,
-                    stagger: 0.2,
-                    duration: 0.8,
+                    y: isMobile ? 25 : 50,
+                    stagger: isMobile ? 0.12 : 0.2,
+                    duration: isMobile ? 0.6 : 0.8,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: rightColRef.current,
@@ -81,8 +83,8 @@ export default function AboutMe() {
             // Skills title
             gsap.from(`.${styles.skillsTitle}`, {
                 opacity: 0,
-                x: -30,
-                duration: 0.8,
+                x: isMobile ? -15 : -30,
+                duration: isMobile ? 0.6 : 0.8,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: skillsRef.current,
@@ -96,10 +98,10 @@ export default function AboutMe() {
             if (cards) {
                 gsap.from(cards, {
                     opacity: 0,
-                    y: 60,
+                    y: isMobile ? 30 : 60,
                     scale: 0.9,
-                    stagger: 0.12,
-                    duration: 0.8,
+                    stagger: isMobile ? 0.08 : 0.12,
+                    duration: isMobile ? 0.6 : 0.8,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: skillsRef.current,
@@ -112,8 +114,8 @@ export default function AboutMe() {
             // Marquee slide in
             gsap.from(marqueeRef.current, {
                 opacity: 0,
-                x: -100,
-                duration: 1,
+                x: isMobile ? -40 : -100,
+                duration: isMobile ? 0.7 : 1,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: marqueeRef.current,

@@ -228,7 +228,16 @@
     opacity: 0.7;
 }
 
-/* Responsive */
+.backToTopArrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.backToTop:hover .backToTopArrow {
+    transform: translateY(-3px);
+}
+
+/* Responsive — Tablet */
 @media (max-width: 1024px) {
     .contact {
         padding: 6rem 2rem;
@@ -246,14 +255,82 @@
     }
 }
 
+/* Responsive — Mobile */
 @media (max-width: 640px) {
     .contact {
-        padding: 4rem 1.5rem;
+        padding: 4rem 1.5rem 2rem;
+    }
+
+    .headline {
+        font-size: clamp(2rem, 8vw, 4rem);
+    }
+
+    .header {
+        margin-bottom: 1.5rem;
+    }
+
+    .heroText {
+        margin-bottom: 1.5rem;
+    }
+
+    .ctaRow {
+        margin-bottom: 2rem;
+    }
+
+    .emailLink {
+        padding: 1.5rem 0;
+        gap: 0.3rem;
+    }
+
+    .emailLabel {
+        font-size: 0.75rem;
+    }
+
+    .emailAddress {
+        font-size: clamp(0.9rem, 3vw, 1.5rem);
+    }
+
+    .arrow {
+        font-size: 1.5rem;
+    }
+
+    .infoGrid {
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .infoLabel {
+        font-size: 0.7rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .infoValue {
+        font-size: 0.95rem;
+    }
+
+    .socialLinks a {
+        font-size: 0.95rem;
     }
 
     .footerContent {
         flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
+        gap: 0.75rem;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* Responsive — Small phones */
+@media (max-width: 400px) {
+    .contact {
+        padding: 3rem 1rem 1.5rem;
+    }
+
+    .headline {
+        font-size: clamp(1.6rem, 7vw, 3rem);
+    }
+
+    .emailAddress {
+        font-size: 0.85rem;
     }
 }

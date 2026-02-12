@@ -38,15 +38,18 @@ export default function Hero({ animateIn = true }: HeroProps) {
 
     // Set initial hidden state
     useEffect(() => {
-        gsap.set(taglineRef.current, { opacity: 0, y: -50 });
-        gsap.set(nameRef.current, { opacity: 0, y: 80 });
-        gsap.set(footerRef.current, { opacity: 0, y: 30 });
+        const isMobile = window.innerWidth <= 768;
+        gsap.set(taglineRef.current, { opacity: 0, y: isMobile ? -30 : -50 });
+        gsap.set(nameRef.current, { opacity: 0, y: isMobile ? 40 : 80 });
+        gsap.set(footerRef.current, { opacity: 0, y: isMobile ? 15 : 30 });
     }, []);
 
     // Animate when animateIn becomes true
     useEffect(() => {
         if (!animateIn || hasAnimated.current) return;
         hasAnimated.current = true;
+
+        const isMobile = window.innerWidth <= 768;
 
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ delay: 0.2 });
@@ -55,21 +58,21 @@ export default function Hero({ animateIn = true }: HeroProps) {
             tl.to(taglineRef.current, {
                 opacity: 1,
                 y: 0,
-                duration: 1,
+                duration: isMobile ? 0.8 : 1,
                 ease: 'power3.out',
             })
                 // Animate name sliding up with stagger effect
                 .to(nameRef.current, {
                     opacity: 1,
                     y: 0,
-                    duration: 1.2,
+                    duration: isMobile ? 0.9 : 1.2,
                     ease: 'power4.out',
                 }, '-=0.6')
                 // Animate footer
                 .to(footerRef.current, {
                     opacity: 1,
                     y: 0,
-                    duration: 0.8,
+                    duration: isMobile ? 0.6 : 0.8,
                     ease: 'power3.out',
                 }, '-=0.8');
 
@@ -101,6 +104,8 @@ export default function Hero({ animateIn = true }: HeroProps) {
                     <a href="https://github.com/prajxwal" target="_blank" rel="noopener noreferrer">GITHUB</a>
                     <span className={styles.footerDivider}>/</span>
                     <a href="https://www.linkedin.com/in/prajwaljayaram/" target="_blank" rel="noopener noreferrer">LINKEDIN</a>
+                    <span className={styles.footerDivider}>/</span>
+                    <a href="https://www.youtube.com/@saladpy" target="_blank" rel="noopener noreferrer">YOUTUBE</a>
                 </div>
                 <nav className={styles.footerRight}>
                     <a href="#home">HOME</a>

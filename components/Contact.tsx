@@ -16,12 +16,14 @@ export default function Contact() {
     const footerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        const isMobile = window.innerWidth <= 768;
+
         const ctx = gsap.context(() => {
             // Header slide in with line grow
             gsap.from(headerRef.current, {
                 opacity: 0,
-                y: 40,
-                duration: 1,
+                y: isMobile ? 20 : 40,
+                duration: isMobile ? 0.7 : 1,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: headerRef.current,
@@ -33,7 +35,7 @@ export default function Contact() {
             gsap.from(`.${styles.headerLine}`, {
                 scaleX: 0,
                 transformOrigin: 'left center',
-                duration: 1.2,
+                duration: isMobile ? 0.8 : 1.2,
                 ease: 'power3.inOut',
                 scrollTrigger: {
                     trigger: headerRef.current,
@@ -45,16 +47,14 @@ export default function Contact() {
             // Headline — each word/line animates with clip and translate
             const headlineEl = headlineRef.current?.querySelector('h2');
             if (headlineEl) {
-                // Split into lines manually via children
-                const lines = headlineEl.querySelectorAll('span, br');
                 const animateTargets = headlineEl.querySelectorAll('span');
 
                 gsap.from(animateTargets, {
                     opacity: 0,
-                    y: 100,
-                    rotateX: 40,
-                    stagger: 0.12,
-                    duration: 1.2,
+                    y: isMobile ? 50 : 100,
+                    rotateX: isMobile ? 20 : 40,
+                    stagger: isMobile ? 0.08 : 0.12,
+                    duration: isMobile ? 0.8 : 1.2,
                     ease: 'power4.out',
                     scrollTrigger: {
                         trigger: headlineRef.current,
@@ -67,8 +67,8 @@ export default function Contact() {
             // CTA email link — slide from left with scale
             gsap.from(ctaRef.current, {
                 opacity: 0,
-                x: -80,
-                duration: 1,
+                x: isMobile ? -30 : -80,
+                duration: isMobile ? 0.7 : 1,
                 ease: 'power3.out',
                 scrollTrigger: {
                     trigger: ctaRef.current,
@@ -82,10 +82,10 @@ export default function Contact() {
             if (infos) {
                 gsap.from(infos, {
                     opacity: 0,
-                    y: 50,
+                    y: isMobile ? 25 : 50,
                     scale: 0.95,
-                    stagger: 0.15,
-                    duration: 0.8,
+                    stagger: isMobile ? 0.1 : 0.15,
+                    duration: isMobile ? 0.6 : 0.8,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: infoRef.current,
@@ -99,7 +99,7 @@ export default function Contact() {
             gsap.from(`.${styles.footerLine}`, {
                 scaleX: 0,
                 transformOrigin: 'left center',
-                duration: 1.2,
+                duration: isMobile ? 0.8 : 1.2,
                 ease: 'power3.inOut',
                 scrollTrigger: {
                     trigger: footerRef.current,
@@ -110,8 +110,8 @@ export default function Contact() {
 
             gsap.from(`.${styles.footerContent}`, {
                 opacity: 0,
-                y: 20,
-                duration: 0.8,
+                y: isMobile ? 10 : 20,
+                duration: isMobile ? 0.6 : 0.8,
                 delay: 0.3,
                 ease: 'power3.out',
                 scrollTrigger: {
@@ -165,6 +165,7 @@ export default function Contact() {
                         <div className={styles.socialLinks}>
                             <a href="https://github.com/prajxwal" target="_blank" rel="noopener noreferrer">GitHub</a>
                             <a href="https://www.linkedin.com/in/prajwaljayaram/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a href="https://www.youtube.com/@saladpy" target="_blank" rel="noopener noreferrer">YouTube</a>
                         </div>
                     </div>
                     <div className={styles.infoBlock}>
@@ -181,7 +182,7 @@ export default function Contact() {
                     <div className={styles.footerContent}>
                         <span className={styles.footerText}>© 2026 Prajwal Jayaram</span>
                         <a href="#home" className={styles.backToTop}>
-                            BACK TO TOP ↑
+                            BACK TO TOP <span className={styles.backToTopArrow}>↑</span>
                         </a>
                     </div>
                 </div>

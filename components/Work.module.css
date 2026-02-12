@@ -74,15 +74,31 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Responsive */
+/* Responsive — Tablet */
 @media (max-width: 1024px) {
     .work {
         padding: 4rem 2rem 0;
     }
 }
 
+/* Responsive — Mobile */
 @media (max-width: 640px) {
     .work {
         padding: 3rem 1.5rem 0;
+    }
+
+    .heroText {
+        margin: 0 auto 2rem;
+    }
+
+    .headline {
+        font-size: clamp(1.8rem, 7vw, 3.5rem);
+    }
+}
+
+/* Responsive — Small phones */
+@media (max-width: 400px) {
+    .work {
+        padding: 2.5rem 1rem 0;
     }
 }

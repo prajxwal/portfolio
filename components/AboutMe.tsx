@@ -151,14 +151,16 @@ export default function AboutMe() {
 
                     <div className={styles.rightColumn} ref={rightColRef}>
                         <p className={styles.bio}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+                            I write code that occasionally works, build models that lose money in ways that would impress a statistician, and one day I'll found something that does all three and actually ships. The bar is low. I will clear it.
                         </p>
                         <p className={styles.bio}>
-                            Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia deserunt.
+                            By day I'm debugging algorithms and pretending I understand quant finance. By night I'm getting choked unconscious by people who definitely don't know what a Sharpe ratio is. I lose a lot. I also show up the next day, which turns out to be most of the battle.
+                        </p>
+                        <p className={styles.bio}>
+                            Most developers drink coffee to ship features. I drink it to remember my own name after sparring. The code still gets pushed. The models still run. The fight still happens. Badly sometimes, but it happens.
+                        </p>
+                        <p className={styles.bio}>
+                            Currently breaking things in the gym, the markets, and production. My win rate across all three is a work in progress. It is, however, progressing.
                         </p>
                     </div>
                 </div>

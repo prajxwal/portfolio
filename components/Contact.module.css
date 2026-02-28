@@ -73,60 +73,129 @@
     margin-bottom: 3rem;
 }
 
-.emailLink {
+.ctaLink {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 2rem;
-    padding: 2rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem 2.5rem;
     text-decoration: none;
-    transition: all 0.4s ease;
     position: relative;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
 }
 
-.emailLink::after {
+.ctaLink::before {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: var(--color-text-primary);
-    transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    inset: 0;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 50%, rgba(255, 255, 255, 0.02) 100%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
-.emailLink:hover::after {
+.ctaLink::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.6);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaLink:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.04);
+    transform: translateY(-2px);
+}
+
+.ctaLink:hover::before {
+    opacity: 1;
+}
+
+.ctaLink:hover::after {
     width: 100%;
 }
 
-.emailLink:hover {
-    padding-left: 1rem;
+.ctaContent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.emailLabel {
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    color: var(--color-text-secondary);
-    white-space: nowrap;
+.ctaText {
+    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--color-text-primary);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    transition: letter-spacing 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.emailAddress {
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
+.ctaLink:hover .ctaText {
+    letter-spacing: 0.01em;
+}
+
+.ctaSub {
+    font-size: clamp(0.9rem, 1.5vw, 1.3rem);
     font-weight: 400;
-    color: var(--color-text-primary);
-    flex: 1;
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.05em;
+    transition: color 0.4s ease;
 }
 
-.arrow {
-    font-size: 2rem;
-    color: var(--color-text-primary);
-    transition: transform 0.4s ease;
+.ctaLink:hover .ctaSub {
+    color: rgba(255, 255, 255, 0.55);
 }
 
-.emailLink:hover .arrow {
-    transform: translateX(10px);
+.ctaButton {
+    width: clamp(60px, 8vw, 100px);
+    height: clamp(60px, 8vw, 100px);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+}
+
+.ctaButton::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.ctaLink:hover .ctaButton {
+    border-color: transparent;
+    transform: scale(1.1) rotate(45deg);
+}
+
+.ctaLink:hover .ctaButton::before {
+    opacity: 1;
+}
+
+.ctaArrow {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    color: var(--color-text-primary);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaLink:hover .ctaArrow {
+    transform: rotate(-45deg);
 }
 
 /* Info Grid */
@@ -248,10 +317,12 @@
         gap: 2rem;
     }
 
-    .emailLink {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+    .ctaLink {
+        padding: 2.5rem 2rem;
+    }
+
+    .ctaText {
+        font-size: clamp(1.8rem, 4.5vw, 3.5rem);
     }
 }
 
@@ -277,21 +348,30 @@
         margin-bottom: 2rem;
     }
 
-    .emailLink {
-        padding: 1.5rem 0;
-        gap: 0.3rem;
+    .ctaLink {
+        padding: 1.8rem 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        border-radius: 14px;
     }
 
-    .emailLabel {
-        font-size: 0.75rem;
+    .ctaText {
+        font-size: clamp(1.4rem, 6vw, 2.2rem);
     }
 
-    .emailAddress {
-        font-size: clamp(0.9rem, 3vw, 1.5rem);
+    .ctaSub {
+        font-size: 0.85rem;
     }
 
-    .arrow {
-        font-size: 1.5rem;
+    .ctaButton {
+        width: 50px;
+        height: 50px;
+        align-self: flex-end;
+    }
+
+    .ctaArrow {
+        font-size: 1.3rem;
     }
 
     .infoGrid {
@@ -330,7 +410,11 @@
         font-size: clamp(1.6rem, 7vw, 3rem);
     }
 
-    .emailAddress {
-        font-size: 0.85rem;
+    .ctaLink {
+        padding: 1.5rem 1.2rem;
+    }
+
+    .ctaText {
+        font-size: clamp(1.2rem, 5.5vw, 1.8rem);
     }
 }

@@ -147,10 +147,14 @@ export default function Contact() {
 
                 {/* CTA Row */}
                 <div className={styles.ctaRow} ref={ctaRef}>
-                    <a href="mailto:hello@prajwal.dev" className={styles.emailLink}>
-                        <span className={styles.emailLabel}>SAY HELLO</span>
-                        <span className={styles.emailAddress}>hello@prajwal.dev</span>
-                        <span className={styles.arrow}>→</span>
+                    <a href="mailto:reachprajwal03@gmail.com" className={styles.ctaLink}>
+                        <div className={styles.ctaContent}>
+                            <span className={styles.ctaText}>reach out, I don&apos;t bite</span>
+                            <span className={styles.ctaSub}>(in emails)</span>
+                        </div>
+                        <div className={styles.ctaButton}>
+                            <span className={styles.ctaArrow}>↗</span>
+                        </div>
                     </a>
                 </div>
 

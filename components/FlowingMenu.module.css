@@ -175,8 +175,20 @@
 
 /* Responsive — Mobile (≤768px) */
 @media (max-width: 768px) {
+    .menuItem {
+        flex: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .menuItem:first-child {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
     .menuLink {
-        padding: 0 1.5rem;
+        padding: 3rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .itemNumber {
@@ -184,12 +196,47 @@
     }
 
     .itemTitle {
-        font-size: clamp(1.3rem, 5.5vw, 2.2rem);
+        font-size: clamp(0.95rem, 3.5vw, 1.3rem);
+        font-weight: 500;
+        letter-spacing: 0.08em;
+    }
+
+    /* Show category on mobile as subtle label */
+    .itemMeta {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0;
+        opacity: 0.4;
+    }
+
+    .itemCategory {
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+    }
+
+    .itemYear {
+        display: none;
+    }
+
+    /* Arrow indicator for tap affordance */
+    .menuLink::after {
+        content: '→';
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.25);
+        transition: transform 0.3s ease, color 0.3s ease;
+        flex-shrink: 0;
+        margin-left: 1rem;
+    }
+
+    .menuLink:active::after {
+        color: rgba(255, 255, 255, 0.6);
+        transform: translateX(4px);
     }
 
     /* Disable hover slide on touch */
     .menuLink:hover .itemTitle {
-        letter-spacing: 0.02em;
+        letter-spacing: 0.08em;
         transform: translateX(0);
     }
 
@@ -216,11 +263,15 @@
 /* Responsive — Small phones (≤480px) */
 @media (max-width: 480px) {
     .menuLink {
-        padding: 0 1rem;
+        padding: 1rem 1rem;
     }
 
     .itemTitle {
-        font-size: clamp(1.1rem, 5vw, 1.8rem);
+        font-size: clamp(0.85rem, 3.2vw, 1.1rem);
+    }
+
+    .itemCategory {
+        font-size: 0.55rem;
     }
 
     .marqueeImage {

@@ -137,6 +137,8 @@ function MenuItem({ link, text, image, category, year, speed, index }: MenuItemP
             <a
                 className={styles.menuLink}
                 href={link}
+                target="_blank"
+                rel="noopener noreferrer"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
             >

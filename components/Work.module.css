@@ -1,5 +1,6 @@
 .work {
     height: 100vh;
+    height: 100svh;
     width: 100%;
     background: #000000;
     padding: 0;
@@ -70,7 +71,7 @@
     min-height: 0;
 }
 
-/* Responsive — Tablet */
+/* Responsive — Tablet (≤1024px) */
 @media (max-width: 1024px) {
     .header {
         padding: 2rem 2rem 0;
@@ -86,30 +87,36 @@
     }
 }
 
-/* Responsive — Mobile */
-@media (max-width: 640px) {
+/* Responsive — Mobile (≤768px) */
+@media (max-width: 768px) {
     .header {
         padding: 1.5rem 1.5rem 0;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
 
     .heroText {
         padding: 0 1.5rem;
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
     }
 
     .headline {
-        font-size: clamp(1.8rem, 7vw, 3rem);
+        font-size: clamp(1.6rem, 6vw, 2.8rem);
     }
 }
 
-/* Responsive — Small phones */
-@media (max-width: 400px) {
+/* Responsive — Small phones (≤480px) */
+@media (max-width: 480px) {
     .header {
         padding: 1rem 1rem 0;
+        margin-bottom: 0.5rem;
     }
 
     .heroText {
         padding: 0 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .headline {
+        font-size: clamp(1.4rem, 5.5vw, 2.2rem);
     }
 }

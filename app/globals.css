@@ -11,6 +11,7 @@
 
 /* ========================================
    CSS RESET & VARIABLES
+   Breakpoints: 1024px (tablet), 768px (mobile), 480px (small phone)
 ======================================== */
 *,
 *::before,
@@ -43,10 +44,18 @@
   --transition-fast: 0.2s ease;
   --transition-medium: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Safe area insets for notched phones */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
 }
 
 html {
   scroll-behavior: smooth;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
 }
 
 body {
@@ -102,6 +111,7 @@ button {
 ======================================== */
 .section {
   min-height: 100vh;
+  min-height: 100svh;
   width: 100%;
   position: relative;
 }
@@ -113,6 +123,25 @@ button {
   body {
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
+  }
+
+  /* Minimum tap targets for accessibility */
+  a,
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ========================================
+   HOVER MEDIA QUERY — disable hover effects on touch
+======================================== */
+@media (hover: none) {
+
+  /* Touch devices don't get hover states */
+  a:hover,
+  button:hover {
+    opacity: 1 !important;
   }
 }
 

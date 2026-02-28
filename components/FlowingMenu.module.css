@@ -158,7 +158,7 @@
     flex-shrink: 0;
 }
 
-/* Responsive — Tablet */
+/* Responsive — Tablet (≤1024px) */
 @media (max-width: 1024px) {
     .menuLink {
         padding: 0 2rem;
@@ -173,8 +173,8 @@
     }
 }
 
-/* Responsive — Mobile */
-@media (max-width: 640px) {
+/* Responsive — Mobile (≤768px) */
+@media (max-width: 768px) {
     .menuLink {
         padding: 0 1.5rem;
     }
@@ -184,39 +184,47 @@
     }
 
     .itemTitle {
-        font-size: clamp(1.5rem, 6vw, 2.5rem);
+        font-size: clamp(1.3rem, 5.5vw, 2.2rem);
     }
 
+    /* Disable hover slide on touch */
     .menuLink:hover .itemTitle {
-        letter-spacing: 0.04em;
-        transform: translateX(0.5rem);
+        letter-spacing: 0.02em;
+        transform: translateX(0);
     }
 
     .marqueeText {
-        font-size: clamp(1.2rem, 5vw, 2.5rem);
+        font-size: clamp(1rem, 4.5vw, 2rem);
     }
 
     .marqueeImage {
-        width: 100px;
+        width: 80px;
         height: 5vh;
-        min-height: 40px;
+        min-height: 35px;
         margin: 0 1.5vw;
-        border-radius: 30px;
+        border-radius: 25px;
     }
 }
 
-/* Responsive — Small phones */
-@media (max-width: 400px) {
+/* Disable marquee on touch-only devices */
+@media (hover: none) {
+    .marqueeOverlay {
+        display: none;
+    }
+}
+
+/* Responsive — Small phones (≤480px) */
+@media (max-width: 480px) {
     .menuLink {
         padding: 0 1rem;
     }
 
     .itemTitle {
-        font-size: clamp(1.2rem, 5.5vw, 2rem);
+        font-size: clamp(1.1rem, 5vw, 1.8rem);
     }
 
     .marqueeImage {
-        width: 70px;
-        min-height: 30px;
+        width: 60px;
+        min-height: 25px;
     }
 }

@@ -1,5 +1,6 @@
 .about {
     height: 100vh;
+    height: 100svh;
     width: 100%;
     background: #000000;
     padding: 0 4rem;
@@ -137,7 +138,7 @@
     }
 }
 
-/* Responsive — Tablet */
+/* Responsive — Tablet (≤1024px) */
 @media (max-width: 1024px) {
     .about {
         padding: 0 2rem;
@@ -153,8 +154,8 @@
     }
 }
 
-/* Responsive — Mobile */
-@media (max-width: 640px) {
+/* Responsive — Mobile (≤768px) */
+@media (max-width: 768px) {
     .about {
         padding: 0 1.5rem;
     }
@@ -164,30 +165,63 @@
     }
 
     .headline {
-        font-size: clamp(1.8rem, 7vw, 3rem);
+        font-size: clamp(1.6rem, 6vw, 2.5rem);
     }
 
     .bio {
-        font-size: 0.85rem;
-        line-height: 1.6;
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .rightColumn {
+        gap: 0.8rem;
     }
 
     .marquee span {
-        font-size: clamp(1.5rem, 6vw, 3rem);
+        font-size: clamp(1.2rem, 5vw, 2rem);
     }
 
     .marqueeWrapper {
         padding: 1rem 0;
     }
+
+    .marquee {
+        gap: 2rem;
+    }
 }
 
-/* Responsive — Small phones */
-@media (max-width: 400px) {
+/* Responsive — Small phones (≤480px) */
+@media (max-width: 480px) {
     .about {
         padding: 0 1rem;
     }
 
     .container {
         padding: 1.5rem 0;
+    }
+
+    .headline {
+        font-size: clamp(1.4rem, 5.5vw, 2rem);
+    }
+
+    .bio {
+        font-size: 0.75rem;
+        line-height: 1.45;
+    }
+
+    .rightColumn {
+        gap: 0.6rem;
+    }
+
+    .marquee span {
+        font-size: clamp(1rem, 4.5vw, 1.6rem);
+    }
+
+    .marqueeWrapper {
+        padding: 0.75rem 0;
+    }
+
+    .marquee {
+        gap: 1.5rem;
     }
 }

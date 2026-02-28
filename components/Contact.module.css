@@ -1,5 +1,6 @@
 .contact {
     height: 100vh;
+    height: 100svh;
     width: 100%;
     background: #000000;
     padding: 3rem 4rem 2rem;
@@ -269,6 +270,7 @@
 .footer {
     padding-top: 1.5rem;
     flex-shrink: 0;
+    padding-bottom: var(--safe-bottom);
 }
 
 .footerLine {
@@ -313,19 +315,19 @@
     transform: translateY(-3px);
 }
 
-/* Responsive — Tablet */
+/* Responsive — Tablet (≤1024px) */
 @media (max-width: 1024px) {
     .contact {
-        padding: 6rem 2rem;
+        padding: 3rem 2rem 2rem;
     }
 
     .infoGrid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
     }
 
     .ctaLink {
-        padding: 2.5rem 2rem;
+        padding: 1.5rem 2rem;
     }
 
     .ctaText {
@@ -333,18 +335,14 @@
     }
 }
 
-/* Responsive — Mobile */
-@media (max-width: 640px) {
+/* Responsive — Mobile (≤768px) */
+@media (max-width: 768px) {
     .contact {
-        padding: 4rem 1.5rem 2rem;
+        padding: 2rem 1.5rem 1.5rem;
     }
 
     .headline {
-        font-size: clamp(2rem, 8vw, 4rem);
-    }
-
-    .header {
-        margin-bottom: 1.5rem;
+        font-size: clamp(1.8rem, 7vw, 3rem);
     }
 
     .heroText {
@@ -352,76 +350,133 @@
     }
 
     .ctaRow {
-        margin-bottom: 2rem;
+        margin-bottom: 1.5rem;
     }
 
     .ctaLink {
-        padding: 1.8rem 1.5rem;
+        padding: 1.5rem 1.5rem;
         flex-direction: column;
         align-items: flex-start;
-        gap: 1.5rem;
+        gap: 1.2rem;
         border-radius: 14px;
     }
 
     .ctaText {
-        font-size: clamp(1.4rem, 6vw, 2.2rem);
+        font-size: clamp(1.2rem, 5vw, 2rem);
     }
 
     .ctaSub {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
 
     .ctaButton {
-        width: 50px;
-        height: 50px;
+        width: 48px;
+        height: 48px;
         align-self: flex-end;
     }
 
     .ctaArrow {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .infoGrid {
-        gap: 1.5rem;
-        margin-bottom: 1.5rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        padding-top: 1.5rem;
+    }
+
+    .infoBlock {
+        padding: 0.5rem 0;
     }
 
     .infoLabel {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         margin-bottom: 0.5rem;
     }
 
     .infoValue {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
     }
 
     .socialLinks a {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
+    }
+
+    .socialLinks {
+        gap: 0.3rem;
+    }
+
+    .footer {
+        padding-top: 1rem;
+    }
+
+    .footerLine {
+        margin-bottom: 0.75rem;
+    }
+
+    .footerText {
+        font-size: 0.65rem;
+    }
+
+    .backToTop {
+        font-size: 0.65rem;
+    }
+}
+
+/* Responsive — Small phones (≤480px) */
+@media (max-width: 480px) {
+    .contact {
+        padding: 1.5rem 1rem 1rem;
+    }
+
+    .headline {
+        font-size: clamp(1.4rem, 6vw, 2.5rem);
+    }
+
+    .heroText {
+        margin-bottom: 1rem;
+    }
+
+    .ctaLink {
+        padding: 1.2rem 1rem;
+        border-radius: 12px;
+    }
+
+    .ctaText {
+        font-size: clamp(1rem, 4.5vw, 1.6rem);
+    }
+
+    .ctaSub {
+        font-size: 0.7rem;
+    }
+
+    .ctaButton {
+        width: 44px;
+        height: 44px;
+    }
+
+    .infoGrid {
+        padding-top: 1rem;
+        gap: 0.75rem;
+    }
+
+    .infoLabel {
+        font-size: 0.6rem;
+        letter-spacing: 0.15em;
+    }
+
+    .infoValue {
+        font-size: 0.75rem;
+    }
+
+    .socialLinks a {
+        font-size: 0.75rem;
     }
 
     .footerContent {
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.5rem;
         align-items: center;
         text-align: center;
-    }
-}
-
-/* Responsive — Small phones */
-@media (max-width: 400px) {
-    .contact {
-        padding: 3rem 1rem 1.5rem;
-    }
-
-    .headline {
-        font-size: clamp(1.6rem, 7vw, 3rem);
-    }
-
-    .ctaLink {
-        padding: 1.5rem 1.2rem;
-    }
-
-    .ctaText {
-        font-size: clamp(1.2rem, 5.5vw, 1.8rem);
     }
 }

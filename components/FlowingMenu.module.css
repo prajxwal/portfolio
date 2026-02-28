@@ -13,16 +13,16 @@
     padding: 0;
 }
 
-/* Menu Item */
+/* Menu Item — flex: 1 fills the available height evenly */
 .menuItem {
     flex: 1;
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .menuItem:first-child {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Menu Link */
@@ -36,20 +36,33 @@
     text-decoration: none;
     color: #ffffff;
     padding: 0 4rem;
-    transition: background-color 0.4s ease;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.menuLink:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+.menuLink::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0);
+    transition: background 0.5s ease;
+}
+
+.menuLink:hover::before {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 /* Item Number */
 .itemNumber {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.4);
-    min-width: 3rem;
-    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.3);
+    min-width: 4rem;
+    letter-spacing: 0.15em;
+    transition: color 0.4s ease;
+}
+
+.menuLink:hover .itemNumber {
+    color: rgba(255, 255, 255, 0.6);
 }
 
 /* Item Title */
@@ -57,14 +70,15 @@
     font-size: clamp(2.5rem, 5vw, 5rem);
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
     flex: 1;
-    transition: letter-spacing 0.4s ease, transform 0.4s ease;
+    line-height: 1;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .menuLink:hover .itemTitle {
-    letter-spacing: 0.08em;
-    transform: translateX(1rem);
+    letter-spacing: 0.06em;
+    transform: translateX(1.5rem);
 }
 
 /* Item Meta */
@@ -72,24 +86,31 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 0.25rem;
+    gap: 0.4rem;
+    opacity: 0.5;
+    transition: opacity 0.4s ease;
+}
+
+.menuLink:hover .itemMeta {
+    opacity: 1;
 }
 
 .itemCategory {
     font-size: 0.75rem;
     font-weight: 400;
-    letter-spacing: 0.15em;
-    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.6);
     text-transform: uppercase;
 }
 
 .itemYear {
     font-size: 0.75rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.35);
+    letter-spacing: 0.1em;
 }
 
-/* Marquee Overlay */
+/* Marquee Overlay — full viewport width */
 .marqueeOverlay {
     position: absolute;
     top: 0;
@@ -122,15 +143,15 @@
     font-weight: 600;
     font-size: clamp(2rem, 4vw, 4rem);
     line-height: 1;
-    padding: 0 1.5vw;
+    padding: 0 2vw;
     letter-spacing: 0.05em;
 }
 
 .marqueeImage {
-    width: 180px;
-    height: 7vh;
+    width: 200px;
+    height: 8vh;
     min-height: 60px;
-    margin: 0 2vw;
+    margin: 0 2.5vw;
     border-radius: 50px;
     background-size: cover;
     background-position: center;
@@ -141,6 +162,10 @@
 @media (max-width: 1024px) {
     .menuLink {
         padding: 0 2rem;
+    }
+
+    .itemTitle {
+        font-size: clamp(2rem, 4.5vw, 3.5rem);
     }
 
     .itemMeta {
@@ -163,7 +188,7 @@
     }
 
     .menuLink:hover .itemTitle {
-        letter-spacing: 0.05em;
+        letter-spacing: 0.04em;
         transform: translateX(0.5rem);
     }
 

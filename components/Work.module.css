@@ -1,8 +1,8 @@
 .work {
-    min-height: 100vh;
+    height: 100vh;
     width: 100%;
     background: #000000;
-    padding: 4rem 4rem 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -13,11 +13,9 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    margin-bottom: 2rem;
-    max-width: 1400px;
+    margin-bottom: 1.5rem;
+    padding: 2rem 4rem 0;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .label {
@@ -42,18 +40,17 @@
 
 /* Hero Text */
 .heroText {
-    max-width: 1400px;
-    margin: 0 auto 3rem;
-    width: 100%;
+    padding: 0 4rem;
+    margin-bottom: 2rem;
     perspective: 600px;
 }
 
 .headline {
     font-size: clamp(2.5rem, 5.5vw, 5.5rem);
     font-weight: 600;
-    line-height: 1.08;
+    line-height: 1.05;
     color: var(--color-text-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
 }
 
 .headlineLine {
@@ -66,39 +63,53 @@
     font-weight: 300;
 }
 
-/* Menu Container */
+/* Menu Container — full width, fills remaining space */
 .menuContainer {
     flex: 1;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    min-height: 0;
 }
 
 /* Responsive — Tablet */
 @media (max-width: 1024px) {
-    .work {
-        padding: 4rem 2rem 0;
+    .header {
+        padding: 2rem 2rem 0;
+    }
+
+    .heroText {
+        padding: 0 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .headline {
+        font-size: clamp(2rem, 5vw, 4rem);
     }
 }
 
 /* Responsive — Mobile */
 @media (max-width: 640px) {
-    .work {
-        padding: 3rem 1.5rem 0;
+    .header {
+        padding: 1.5rem 1.5rem 0;
+        margin-bottom: 1rem;
     }
 
     .heroText {
-        margin: 0 auto 2rem;
+        padding: 0 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .headline {
-        font-size: clamp(1.8rem, 7vw, 3.5rem);
+        font-size: clamp(1.8rem, 7vw, 3rem);
     }
 }
 
 /* Responsive — Small phones */
 @media (max-width: 400px) {
-    .work {
-        padding: 2.5rem 1rem 0;
+    .header {
+        padding: 1rem 1rem 0;
+    }
+
+    .heroText {
+        padding: 0 1rem;
     }
 }

@@ -12,7 +12,7 @@ export default function AboutMe() {
     const headerRef = useRef<HTMLDivElement>(null);
     const headlineRef = useRef<HTMLHeadingElement>(null);
     const rightColRef = useRef<HTMLDivElement>(null);
-    const skillsRef = useRef<HTMLDivElement>(null);
+
     const marqueeRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -80,36 +80,7 @@ export default function AboutMe() {
                 });
             }
 
-            // Skills title
-            gsap.from(`.${styles.skillsTitle}`, {
-                opacity: 0,
-                x: isMobile ? -15 : -30,
-                duration: isMobile ? 0.6 : 0.8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: skillsRef.current,
-                    start: 'top 80%',
-                    toggleActions: 'play reverse play reverse',
-                },
-            });
 
-            // Skill cards stagger with scale
-            const cards = skillsRef.current?.querySelectorAll(`.${styles.skillCard}`);
-            if (cards) {
-                gsap.from(cards, {
-                    opacity: 0,
-                    y: isMobile ? 30 : 60,
-                    scale: 0.9,
-                    stagger: isMobile ? 0.08 : 0.12,
-                    duration: isMobile ? 0.6 : 0.8,
-                    ease: 'power3.out',
-                    scrollTrigger: {
-                        trigger: skillsRef.current,
-                        start: 'top 75%',
-                        toggleActions: 'play reverse play reverse',
-                    },
-                });
-            }
 
             // Marquee slide in
             gsap.from(marqueeRef.current, {
@@ -165,32 +136,6 @@ export default function AboutMe() {
                     </div>
                 </div>
 
-                {/* Skills Grid */}
-                <div className={styles.skillsSection} ref={skillsRef}>
-                    <h3 className={styles.skillsTitle}>EXPERTISE</h3>
-                    <div className={styles.skillsGrid}>
-                        <div className={styles.skillCard}>
-                            <span className={styles.skillNumber}>01</span>
-                            <h4 className={styles.skillName}>Frontend Development</h4>
-                            <p className={styles.skillDesc}>React, Next.js, TypeScript, GSAP</p>
-                        </div>
-                        <div className={styles.skillCard}>
-                            <span className={styles.skillNumber}>02</span>
-                            <h4 className={styles.skillName}>Backend Development</h4>
-                            <p className={styles.skillDesc}>Node.js, Python, PostgreSQL, APIs</p>
-                        </div>
-                        <div className={styles.skillCard}>
-                            <span className={styles.skillNumber}>03</span>
-                            <h4 className={styles.skillName}>Creative Design</h4>
-                            <p className={styles.skillDesc}>UI/UX, Motion Design, Figma</p>
-                        </div>
-                        <div className={styles.skillCard}>
-                            <span className={styles.skillNumber}>04</span>
-                            <h4 className={styles.skillName}>Problem Solving</h4>
-                            <p className={styles.skillDesc}>Architecture, Optimization, Debugging</p>
-                        </div>
-                    </div>
-                </div>
 
                 {/* Marquee */}
                 <div className={styles.marqueeWrapper} ref={marqueeRef}>

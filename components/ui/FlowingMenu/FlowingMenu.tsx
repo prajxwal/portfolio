@@ -2,18 +2,11 @@
 
 import { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
+import { Project } from '@/lib/data/projects';
 import styles from './FlowingMenu.module.css';
 
-interface FlowingMenuItem {
-    link: string;
-    text: string;
-    image: string;
-    category: string;
-    year: string;
-}
-
 interface FlowingMenuProps {
-    items?: FlowingMenuItem[];
+    items?: Project[];
     speed?: number;
 }
 

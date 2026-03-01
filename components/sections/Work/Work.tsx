@@ -3,41 +3,11 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import FlowingMenu from './FlowingMenu';
+import FlowingMenu from '@/components/ui/FlowingMenu/FlowingMenu';
+import { projects } from '@/lib/data/projects';
 import styles from './Work.module.css';
 
 gsap.registerPlugin(ScrollTrigger);
-
-const projects = [
-    {
-        link: 'https://github.com/prajxwal/hearMD',
-        text: 'hearMD',
-        image: 'https://picsum.photos/seed/hearmd/600/400',
-        category: 'Full Stack',
-        year: '2026',
-    },
-    {
-        link: 'https://option-pricing-engine.vercel.app/',
-        text: 'Option Pricing Engine',
-        image: 'https://picsum.photos/seed/optionprice/600/400',
-        category: 'Quant Finance',
-        year: '2025',
-    },
-    {
-        link: 'https://wfc-sudoku-solver.vercel.app/',
-        text: 'WFC Sudoku Solver',
-        image: 'https://picsum.photos/seed/sudoku/600/400',
-        category: 'Algorithms',
-        year: '2025',
-    },
-    {
-        link: 'https://github.com/prajxwal/WindowsDefenderBypass-csharp',
-        text: 'Defender Bypass',
-        image: 'https://picsum.photos/seed/defender/600/400',
-        category: 'Security',
-        year: '2024',
-    },
-];
 
 export default function Work() {
     const sectionRef = useRef<HTMLElement>(null);

@@ -3,7 +3,7 @@
 ======================================== */
 @font-face {
   font-family: 'Martian Mono';
-  src: url('../components/fonts/MartianMono[wdth,wght].woff') format('woff');
+  src: url('/fonts/MartianMono[wdth,wght].woff') format('woff');
   font-weight: 100 900;
   font-stretch: 75% 112.5%;
   font-display: swap;

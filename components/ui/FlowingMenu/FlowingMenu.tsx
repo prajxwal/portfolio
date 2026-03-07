@@ -151,10 +151,18 @@ function MenuItem({ link, text, image, category, year, speed, index }: MenuItemP
                     {[...Array(repetitions)].map((_, idx) => (
                         <div className={styles.marqueePart} key={idx}>
                             <span className={styles.marqueeText}>{text}</span>
-                            <div
-                                className={styles.marqueeImage}
-                                style={{ backgroundImage: `url(${image})` }}
-                            />
+                            {text === 'hearMD' || text === 'HearMD' ? (
+                                <img
+                                    className={`${styles.marqueeImage} ${styles.marqueeImageContain}`}
+                                    src={image}
+                                    alt={text}
+                                />
+                            ) : (
+                                <div
+                                    className={`${styles.marqueeImage} ${text === 'WFC Sudoku Solver' ? styles.marqueeImageZoomOut : ''}`}
+                                    style={{ backgroundImage: `url(${image})` }}
+                                />
+                            )}
                         </div>
                     ))}
                 </div>

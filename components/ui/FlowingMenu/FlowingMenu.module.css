@@ -158,6 +158,19 @@
     flex-shrink: 0;
 }
 
+.marqueeImageContain {
+    width: auto !important;
+    object-fit: contain;
+    border-radius: 10px !important;
+}
+
+.marqueeImageZoomOut {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #111;
+    /* subtle background for the container */
+}
+
 /* Responsive — Tablet (≤1024px) */
 @media (max-width: 1024px) {
     .menuLink {

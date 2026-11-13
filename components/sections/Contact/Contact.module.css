@@ -160,6 +160,14 @@
     color: rgba(255, 255, 255, 0.55);
 }
 
+/* Wrapper moved by JS to follow the cursor; the inner button keeps its own hover transform */
+.ctaFollow {
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+}
+
 .ctaButton {
     width: clamp(60px, 8vw, 100px);
     height: clamp(60px, 8vw, 100px);

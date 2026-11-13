@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import styles from './Hero.module.css';
+import AsciiBlackHole from '@/components/ui/AsciiBlackHole/AsciiBlackHole';
+import { createGooReveal, type GooReveal } from '@/lib/animations/gooReveal';
 
 interface HeroProps {
     animateIn?: boolean;
@@ -10,10 +12,11 @@ interface HeroProps {
 
 export default function Hero({ animateIn = true }: HeroProps) {
     const heroRef = useRef<HTMLDivElement>(null);
-    const taglineRef = useRef<HTMLParagraphElement>(null);
     const nameRef = useRef<HTMLDivElement>(null);
+    const holeRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
     const hasAnimated = useRef(false);
+    const gooRef = useRef<GooReveal | null>(null);
 
     const [currentTime, setCurrentTime] = useState('');
 
@@ -39,9 +42,17 @@ export default function Hero({ animateIn = true }: HeroProps) {
     // Set initial hidden state
     useEffect(() => {
         const isMobile = window.innerWidth <= 768;
-        gsap.set(taglineRef.current, { opacity: 0, y: isMobile ? -30 : -50 });
+        gsap.set(holeRef.current, { opacity: 0 });
         gsap.set(nameRef.current, { opacity: 0, y: isMobile ? 40 : 80 });
         gsap.set(footerRef.current, { opacity: 0, y: isMobile ? 15 : 30 });
+
+        // Name starts as a hidden goo blob; revealed once the preloader is done
+        const goo = createGooReveal(nameRef.current?.querySelectorAll('span'), { stagger: 0.15 });
+        gooRef.current = goo;
+        return () => {
+            goo.destroy();
+            gooRef.current = null;
+        };
     }, []);
 
     // Animate when animateIn becomes true
@@ -54,12 +65,11 @@ export default function Hero({ animateIn = true }: HeroProps) {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ delay: 0.2 });
 
-            // Animate tagline sliding down
-            tl.to(taglineRef.current, {
+            // Fade in the black hole, then the name and footer
+            tl.to(holeRef.current, {
                 opacity: 1,
-                y: 0,
-                duration: isMobile ? 0.8 : 1,
-                ease: 'power3.out',
+                duration: isMobile ? 1.2 : 1.6,
+                ease: 'power2.out',
             })
                 // Animate name sliding up with stagger effect
                 .to(nameRef.current, {
@@ -78,16 +88,17 @@ export default function Hero({ animateIn = true }: HeroProps) {
 
         }, heroRef);
 
+        gooRef.current?.reveal(isMobile ? 0.5 : 0.6);
+
         return () => ctx.revert();
     }, [animateIn]);
 
     return (
         <section id="home" className={styles.hero} ref={heroRef}>
-            {/* Tagline at top center */}
-            <p className={styles.tagline} ref={taglineRef}>
-                <em>Schrödinger's Developer:</em> My code is simultaneously brilliant and broken.
-                <br />Let's work together and find out.
-            </p>
+            {/* ASCII black hole — reacts to the cursor */}
+            <div className={styles.blackHole} ref={holeRef}>
+                <AsciiBlackHole className={styles.blackHoleCanvas} />
+            </div>
 
             {/* Large name at bottom */}
             <div className={styles.nameContainer} ref={nameRef}>

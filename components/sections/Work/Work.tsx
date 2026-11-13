@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import FlowingMenu from '@/components/ui/FlowingMenu/FlowingMenu';
 import { projects } from '@/lib/data/projects';
 import styles from './Work.module.css';
+import { createGooReveal } from '@/lib/animations/gooReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -42,26 +43,18 @@ export default function Work() {
                 },
             });
 
-            // Hero text animation
-            const heroLines = heroRef.current?.querySelectorAll('span');
-            if (heroLines) {
-                gsap.from(heroLines, {
-                    opacity: 0,
-                    y: isMobile ? 30 : 60,
-                    rotateX: isMobile ? 15 : 30,
-                    stagger: isMobile ? 0.08 : 0.12,
-                    duration: isMobile ? 0.7 : 1,
-                    ease: 'power4.out',
-                    scrollTrigger: {
-                        trigger: heroRef.current,
-                        start: 'top 80%',
-                        toggleActions: 'play reverse play reverse',
-                    },
-                });
-            }
         }, sectionRef);
 
-        return () => ctx.revert();
+        // Headline: gooey blur-to-sharp reveal, line by line
+        const goo = createGooReveal(heroRef.current?.querySelectorAll('h2 > span'), {
+            trigger: heroRef.current,
+            start: 'top 80%',
+        });
+
+        return () => {
+            ctx.revert();
+            goo.destroy();
+        };
     }, []);
 
     return (

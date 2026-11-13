@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './AboutMe.module.css';
+import { createGooReveal } from '@/lib/animations/gooReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,24 +46,6 @@ export default function AboutMe() {
                 },
             });
 
-            // Headline lines stagger
-            const lines = headlineRef.current?.querySelectorAll('span');
-            if (lines) {
-                gsap.from(lines, {
-                    opacity: 0,
-                    y: isMobile ? 40 : 80,
-                    rotateX: isMobile ? 20 : 45,
-                    stagger: isMobile ? 0.1 : 0.15,
-                    duration: isMobile ? 0.7 : 1,
-                    ease: 'power4.out',
-                    scrollTrigger: {
-                        trigger: headlineRef.current,
-                        start: 'top 80%',
-                        toggleActions: 'play reverse play reverse',
-                    },
-                });
-            }
-
             // Right column bio paragraphs
             const bios = rightColRef.current?.querySelectorAll('p');
             if (bios) {
@@ -97,7 +80,16 @@ export default function AboutMe() {
 
         }, sectionRef);
 
-        return () => ctx.revert();
+        // Headline: gooey blur-to-sharp reveal, line by line
+        const goo = createGooReveal(headlineRef.current?.querySelectorAll('span'), {
+            trigger: headlineRef.current,
+            start: 'top 80%',
+        });
+
+        return () => {
+            ctx.revert();
+            goo.destroy();
+        };
     }, []);
 
     return (

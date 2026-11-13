@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './Contact.module.css';
+import { createGooReveal } from '@/lib/animations/gooReveal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +15,8 @@ export default function Contact() {
     const ctaRef = useRef<HTMLDivElement>(null);
     const infoRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
+    const ctaLinkRef = useRef<HTMLAnchorElement>(null);
+    const ctaFollowRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const isMobile = window.innerWidth <= 768;
@@ -43,26 +46,6 @@ export default function Contact() {
                     toggleActions: 'play reverse play reverse',
                 },
             });
-
-            // Headline — each word/line animates with clip and translate
-            const headlineEl = headlineRef.current?.querySelector('h2');
-            if (headlineEl) {
-                const animateTargets = headlineEl.querySelectorAll('span');
-
-                gsap.from(animateTargets, {
-                    opacity: 0,
-                    y: isMobile ? 50 : 100,
-                    rotateX: isMobile ? 20 : 40,
-                    stagger: isMobile ? 0.08 : 0.12,
-                    duration: isMobile ? 0.8 : 1.2,
-                    ease: 'power4.out',
-                    scrollTrigger: {
-                        trigger: headlineRef.current,
-                        start: 'top 80%',
-                        toggleActions: 'play reverse play reverse',
-                    },
-                });
-            }
 
             // CTA email link — slide from left with scale
             gsap.from(ctaRef.current, {
@@ -123,7 +106,48 @@ export default function Contact() {
 
         }, sectionRef);
 
-        return () => ctx.revert();
+        // Headline: gooey blur-to-sharp reveal, line by line
+        const goo = createGooReveal(headlineRef.current?.querySelectorAll('h2 > span'), {
+            trigger: headlineRef.current,
+            start: 'top 80%',
+        });
+
+        return () => {
+            ctx.revert();
+            goo.destroy();
+        };
+    }, []);
+
+    // CTA arrow follows the cursor while it's inside the card, then springs home
+    useEffect(() => {
+        const link = ctaLinkRef.current;
+        const follow = ctaFollowRef.current;
+        if (!link || !follow) return;
+
+        const xTo = gsap.quickTo(follow, 'x', { duration: 0.6, ease: 'power3.out' });
+        const yTo = gsap.quickTo(follow, 'y', { duration: 0.6, ease: 'power3.out' });
+
+        const onMove = (e: PointerEvent) => {
+            if (e.pointerType !== 'mouse') return;
+            // Home centre = current rect minus the offset we've already applied
+            const r = follow.getBoundingClientRect();
+            const homeX = r.left + r.width / 2 - (gsap.getProperty(follow, 'x') as number);
+            const homeY = r.top + r.height / 2 - (gsap.getProperty(follow, 'y') as number);
+            xTo(e.clientX - homeX);
+            yTo(e.clientY - homeY);
+        };
+        const onLeave = () => {
+            xTo(0);
+            yTo(0);
+        };
+
+        link.addEventListener('pointermove', onMove);
+        link.addEventListener('pointerleave', onLeave);
+        return () => {
+            link.removeEventListener('pointermove', onMove);
+            link.removeEventListener('pointerleave', onLeave);
+            gsap.killTweensOf(follow);
+        };
     }, []);
 
     return (
@@ -147,13 +171,15 @@ export default function Contact() {
 
                 {/* CTA Row */}
                 <div className={styles.ctaRow} ref={ctaRef}>
-                    <a href="mailto:reachprajwal03@gmail.com" className={styles.ctaLink}>
+                    <a href="mailto:reachprajwal03@gmail.com" className={styles.ctaLink} ref={ctaLinkRef}>
                         <div className={styles.ctaContent}>
                             <span className={styles.ctaText}>reach out, I don&apos;t bite</span>
                             <span className={styles.ctaSub}>(in emails)</span>
                         </div>
-                        <div className={styles.ctaButton}>
-                            <span className={styles.ctaArrow}>↗</span>
+                        <div className={styles.ctaFollow} ref={ctaFollowRef}>
+                            <div className={styles.ctaButton}>
+                                <span className={styles.ctaArrow}>↗</span>
+                            </div>
                         </div>
                     </a>
                 </div>

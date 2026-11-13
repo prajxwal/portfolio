@@ -7,6 +7,34 @@
     flex-direction: column;
     background: #000000;
     overflow: hidden;
+    /* Keep the difference blend of the text scoped to the hero */
+    isolation: isolate;
+}
+
+/* ASCII black hole: above the pixel trail, below the text, never takes the pointer */
+.blackHole {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.blackHoleCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* Text layers let the pointer pass through to the trail, and
+   difference-blend so white text turns black over a lit pixel */
+.nameContainer,
+.footer {
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+.footer a {
+    pointer-events: auto;
 }
 
 /* Tagline at top center */

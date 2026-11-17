@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSmoothScroll } from '@/lib/hooks/useSmoothScroll';
 import Hero from '@/components/sections/Hero/Hero';
 import AboutMe from '@/components/sections/AboutMe/AboutMe';
@@ -9,14 +9,18 @@ import Contact from '@/components/sections/Contact/Contact';
 import Preloader from '@/components/ui/Preloader/Preloader';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
+  // revealed: the loader collapsed and the hero starts; loaderMounted: the loader is still fading out on top
+  const [revealed, setRevealed] = useState(false);
+  const [loaderMounted, setLoaderMounted] = useState(true);
+  const onReveal = useCallback(() => setRevealed(true), []);
+  const onDone = useCallback(() => setLoaderMounted(false), []);
 
-  useSmoothScroll(!isLoading);
+  useSmoothScroll(revealed);
 
   return (
     <main>
-      {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
-      <Hero animateIn={!isLoading} />
+      {loaderMounted && <Preloader onReveal={onReveal} onDone={onDone} />}
+      <Hero animateIn={revealed} />
       <AboutMe />
       <Work />
       <Contact />

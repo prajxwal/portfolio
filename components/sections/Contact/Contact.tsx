@@ -1,9 +1,11 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './Contact.module.css';
+import SnakeModal from '@/components/ui/SnakeGame/SnakeModal';
+import { getTheme, setTheme, type Theme } from '@/lib/theme';
 import { createGooReveal } from '@/lib/animations/gooReveal';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -17,6 +19,15 @@ export default function Contact() {
     const footerRef = useRef<HTMLDivElement>(null);
     const ctaLinkRef = useRef<HTMLAnchorElement>(null);
     const ctaFollowRef = useRef<HTMLDivElement>(null);
+    const [bored, setBored] = useState(false);
+    const closeSnake = useCallback(() => setBored(false), []);
+    const [theme, setThemeState] = useState<Theme>('dark');
+    useEffect(() => setThemeState(getTheme()), []);
+    const toggleTheme = () => {
+        const next: Theme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+        setThemeState(next);
+    };
 
     useEffect(() => {
         const isMobile = window.innerWidth <= 768;
@@ -203,6 +214,23 @@ export default function Contact() {
                         <p className={styles.infoValue}>
                             Open for freelance<br />& collaborations
                         </p>
+                        <button
+                            type="button"
+                            className={`${styles.infoValue} ${styles.boredLink}`}
+                            onClick={() => setBored(true)}
+                        >
+                            I am bored.
+                        </button>
+                        <button
+                            type="button"
+                            className={`${styles.infoValue} ${styles.boredLink}`}
+                            onClick={toggleTheme}
+                            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                        >
+                            <span className={theme === 'light' ? styles.modeOn : styles.modeOff}>Light mode</span>
+                            {' / '}
+                            <span className={theme === 'dark' ? styles.modeOn : styles.modeOff}>Dark mode</span>
+                        </button>
                     </div>
                 </div>
 
@@ -217,6 +245,8 @@ export default function Contact() {
                     </div>
                 </div>
             </div>
+
+            <SnakeModal open={bored} onClose={closeSnake} />
         </section>
     );
 }

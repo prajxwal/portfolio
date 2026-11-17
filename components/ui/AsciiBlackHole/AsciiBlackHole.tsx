@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { fgRGB } from '@/lib/theme';
 
 /* ------------------------------------------------------------------ *
  *  AsciiBlackHole
@@ -36,6 +37,17 @@ const RIN = 3.0; // inner disk edge (ISCO)
 const ROUT = 9.5; // outer disk edge
 
 const STAR_CHARS = '.·.·+*';
+const BIRTH_MS = 1500;
+
+/** Where the hole sits in a W×H frame. Shared with the preloader so its
+ *  collapse lands exactly where the hole is born. */
+export const holeCenter = (W: number, H: number) => ({ x: W / 2, y: H * (W < 700 ? 0.42 : 0.44) });
+
+/** Overshoots past 1 and settles: the hole "bursts" out a little too big. */
+const easeOutBack = (t: number) => {
+    const c1 = 1.4;
+    return 1 + (c1 + 1) * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+};
 
 const smooth = (a: number, b: number, x: number) => {
     const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
@@ -70,8 +82,17 @@ interface Star {
     ph: number;
 }
 
-export default function AsciiBlackHole({ className }: { className?: string }) {
+export default function AsciiBlackHole({
+    className,
+    born = true,
+}: {
+    className?: string;
+    /** false = draw nothing yet; flipping to true plays the birth animation */
+    born?: boolean;
+}) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
+    const bornRef = useRef(born);
+    bornRef.current = born;
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -87,7 +108,9 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
         let ch = 14;
         let cols = 0;
         let rows = 0;
-        let s = 50; // px per unit
+        let sBase = 50; // px per unit at full size
+        let s = 50; // px per unit this frame (sBase × birth growth)
+        let birthStart = -1;
         let font = '';
         let stars: Star[] = [];
         let occupied = new Uint8Array(0);
@@ -99,7 +122,7 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
         let raf = 0;
         let visible = true;
 
-        const baseCenter = () => ({ x: W / 2, y: H * (W < 700 ? 0.42 : 0.44) });
+        const baseCenter = () => holeCenter(W, H);
 
         const resize = () => {
             const rect = canvas.getBoundingClientRect();
@@ -118,7 +141,8 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
             cols = Math.ceil(W / cw);
             rows = Math.ceil(H / ch);
             occupied = new Uint8Array(cols * rows);
-            s = Math.min(W, H) * (W < 700 ? 0.042 : 0.05);
+            sBase = Math.min(W, H) * (W < 700 ? 0.042 : 0.05);
+            s = sBase;
 
             stars = [];
             for (let r = 0; r < rows; r++) {
@@ -142,10 +166,26 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
         };
 
         const buckets: number[][] = Array.from({ length: RAMP.length }, () => []);
+        const shadowCells: number[] = []; // light mode: solid ink cells inside the shadow
+        const bandCells: number[] = []; // light mode: [rampIdx, x, y] disk glyphs drawn over the ink
 
         const draw = (now: number) => {
             const dt = Math.min(0.05, (now - last) / 1000);
             last = now;
+
+            // ---- birth: nothing until born, then burst out of a point
+            if (!bornRef.current) {
+                ctx.clearRect(0, 0, W, H);
+                return;
+            }
+            if (birthStart < 0) birthStart = reduceMotion ? now - BIRTH_MS : now;
+            const bt = Math.min(1, (now - birthStart) / BIRTH_MS);
+            s = sBase * (0.02 + 0.98 * easeOutBack(bt));
+            const flare = 1 + 2.4 * Math.pow(1 - bt, 3); // photon ring flashes hot, then cools
+            const starFade = smooth(0.35, 1, bt);
+            const fg = fgRGB(); // follows light/dark mode
+            // On a white sky the hole must stay black: solid ink shadow, white photon-ring gap
+            const light = fg === '0, 0, 0';
 
             // ---- ease towards mouse-driven targets
             const b = baseCenter();
@@ -173,11 +213,13 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
             const sr = Math.sin(st.roll);
 
             ctx.clearRect(0, 0, W, H);
-            ctx.font = font;
+            ctx.font = light ? `bold ${font}` : font;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             occupied.fill(0);
             for (const bk of buckets) bk.length = 0;
+            shadowCells.length = 0;
+            bandCells.length = 0;
 
             // ---- the hole: only cells inside its bounding box
             const bx = (ROUT + 0.6) * s;
@@ -223,6 +265,17 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
                     let L: number;
                     if (rr < RSH) {
                         L = y > 0 ? direct : 0;
+                        if (light) {
+                            // Solid ink shadow; where the near disk crosses in front of it,
+                            // draw that disk as white glyphs on top of the ink.
+                            occupied[r * cols + c] = 1;
+                            shadowCells.push(px, py);
+                            if (L >= 0.04) {
+                                const bi = Math.max(1, Math.min(RAMP.length - 1, Math.round(Math.pow(Math.min(L, 1), 0.75) * (RAMP.length - 1))));
+                                bandCells.push(bi, px, py);
+                            }
+                            continue;
+                        }
                         if (L < 0.04) {
                             occupied[r * cols + c] = 1; // shadow: keep stars out
                             continue;
@@ -238,11 +291,14 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
                             lensed = emission(rhoL, Math.atan2(-y, x) + Math.PI, x / rr, phase) * w;
                         }
                         const ring =
-                            Math.exp(-(((rr - RPH) / 0.1) ** 2)) * 1.1 +
+                            Math.exp(-(((rr - RPH) / 0.1) ** 2)) * 1.1 * flare +
                             Math.exp(-(((rr - RPH) / 0.4) ** 2)) * 0.25;
-                        L = Math.max(direct, lensed) + ring * (direct > 0.3 ? 0.25 : 1);
+                        L = light
+                            ? Math.max(direct, lensed) // ring stays blank: a white gap around the ink
+                            : Math.max(direct, lensed) + ring * (direct > 0.3 ? 0.25 : 1);
                     }
 
+                    L *= 1 + 0.5 * (flare - 1);
                     if (L < 0.04) continue;
                     const idx = Math.max(1, Math.min(RAMP.length - 1, Math.round(Math.pow(Math.min(L, 1), 0.75) * (RAMP.length - 1))));
                     buckets[idx].push(px, py);
@@ -266,15 +322,29 @@ export default function AsciiBlackHole({ className }: { className?: string }) {
                 if (c < 0 || r < 0 || c >= cols || r >= rows) continue;
                 if (occupied[r * cols + c]) continue;
                 const tw = reduceMotion ? 0.5 : 0.5 + 0.5 * Math.sin(now * 0.0013 + star.ph);
-                ctx.fillStyle = `rgba(255,255,255,${0.15 + 0.35 * tw})`;
+                ctx.fillStyle = `rgba(${fg},${(0.15 + 0.35 * tw) * starFade})`;
                 ctx.fillText(star.c, (c + 0.5) * cw, (r + 0.5) * ch);
+            }
+
+            // ---- light mode: the shadow as solid blocks on the character grid
+            if (shadowCells.length) {
+                ctx.fillStyle = `rgb(${fg})`;
+                for (let j = 0; j < shadowCells.length; j += 2) {
+                    // 1px overlap hides hairline seams between cells
+                    ctx.fillRect(shadowCells[j] - cw / 2, shadowCells[j + 1] - ch / 2, cw + 1, ch + 1);
+                }
+                for (let j = 0; j < bandCells.length; j += 3) {
+                    const bi = bandCells[j];
+                    ctx.fillStyle = `rgba(255,255,255,${0.45 + (0.55 * bi) / (RAMP.length - 1)})`;
+                    ctx.fillText(RAMP[bi], bandCells[j + 1], bandCells[j + 2]);
+                }
             }
 
             // ---- the hole, one fillStyle per brightness level
             for (let i = 1; i < RAMP.length; i++) {
                 const bk = buckets[i];
                 if (!bk.length) continue;
-                ctx.fillStyle = `rgba(255,255,255,${0.28 + (0.72 * i) / (RAMP.length - 1)})`;
+                ctx.fillStyle = `rgba(${fg},${(light ? 0.5 : 0.28) + ((light ? 0.5 : 0.72) * i) / (RAMP.length - 1)})`;
                 const glyph = RAMP[i];
                 for (let j = 0; j < bk.length; j += 2) ctx.fillText(glyph, bk[j], bk[j + 1]);
             }

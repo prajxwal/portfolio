@@ -13,7 +13,6 @@ interface HeroProps {
 export default function Hero({ animateIn = true }: HeroProps) {
     const heroRef = useRef<HTMLDivElement>(null);
     const nameRef = useRef<HTMLDivElement>(null);
-    const holeRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
     const hasAnimated = useRef(false);
     const gooRef = useRef<GooReveal | null>(null);
@@ -42,7 +41,6 @@ export default function Hero({ animateIn = true }: HeroProps) {
     // Set initial hidden state
     useEffect(() => {
         const isMobile = window.innerWidth <= 768;
-        gsap.set(holeRef.current, { opacity: 0 });
         gsap.set(nameRef.current, { opacity: 0, y: isMobile ? 40 : 80 });
         gsap.set(footerRef.current, { opacity: 0, y: isMobile ? 15 : 30 });
 
@@ -65,12 +63,8 @@ export default function Hero({ animateIn = true }: HeroProps) {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ delay: 0.2 });
 
-            // Fade in the black hole, then the name and footer
-            tl.to(holeRef.current, {
-                opacity: 1,
-                duration: isMobile ? 1.2 : 1.6,
-                ease: 'power2.out',
-            })
+            // The black hole is born out of the loader's flash; let it burst out first
+            tl.to({}, { duration: isMobile ? 1.0 : 1.2 })
                 // Animate name sliding up with stagger effect
                 .to(nameRef.current, {
                     opacity: 1,
@@ -96,8 +90,8 @@ export default function Hero({ animateIn = true }: HeroProps) {
     return (
         <section id="home" className={styles.hero} ref={heroRef}>
             {/* ASCII black hole — reacts to the cursor */}
-            <div className={styles.blackHole} ref={holeRef}>
-                <AsciiBlackHole className={styles.blackHoleCanvas} />
+            <div className={styles.blackHole}>
+                <AsciiBlackHole className={styles.blackHoleCanvas} born={animateIn} />
             </div>
 
             {/* Large name at bottom */}

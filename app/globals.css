@@ -23,12 +23,19 @@
 
 :root {
   /* Colors */
-  --color-bg: #000000;
+  /* Two channels drive the whole palette; light mode just swaps them */
+  --fg-rgb: 255, 255, 255;
+  --bg-rgb: 0, 0, 0;
+  --fg: rgb(var(--fg-rgb));
+  --bg: rgb(var(--bg-rgb));
+
+  --color-bg: var(--bg);
   --color-bg-gradient-start: #0a0a0a;
-  --color-bg-gradient-end: #000000;
-  --color-text-primary: #ffffff;
-  --color-text-secondary: rgba(255, 255, 255, 0.6);
-  --color-accent: #ffffff;
+  --color-bg-gradient-end: var(--bg);
+  --color-text-primary: var(--fg);
+  --color-text-secondary: rgba(var(--fg-rgb), 0.6);
+  --color-accent: var(--fg);
+  color-scheme: dark;
 
   /* Typography */
   --font-primary: 'Martian Mono', monospace;
@@ -50,6 +57,21 @@
   --safe-bottom: env(safe-area-inset-bottom, 0px);
   --safe-left: env(safe-area-inset-left, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
+}
+
+html[data-theme='light'] {
+  --fg-rgb: 0, 0, 0;
+  --bg-rgb: 255, 255, 255;
+  --color-bg-gradient-start: #f5f5f5;
+  color-scheme: light;
+}
+
+/* Set for ~0.6s while the theme flips, so every colour cross-fades */
+html.theme-switching,
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease !important;
 }
 
 html {

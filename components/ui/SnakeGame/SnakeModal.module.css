@@ -1,0 +1,113 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(var(--bg-rgb), 0.92);
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.35s ease both;
+}
+
+.panel {
+    width: min(760px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--color-text-secondary);
+}
+
+.title {
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+.score {
+    font-variant-numeric: tabular-nums;
+}
+
+.sep {
+    margin: 0 0.6rem;
+    opacity: 0.4;
+}
+
+.quit {
+    font: inherit;
+    letter-spacing: inherit;
+    color: var(--color-text-primary);
+    background: transparent;
+    border: 1px solid rgba(var(--fg-rgb), 0.2);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.quit:hover,
+.quit:focus-visible {
+    background: var(--fg);
+    color: var(--bg);
+    border-color: var(--fg);
+    outline: none;
+}
+
+.board {
+    width: 100%;
+    height: min(64vh, 620px);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.hint {
+    text-align: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--color-text-secondary);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+    }
+}
+
+@media (max-width: 768px) {
+    .overlay {
+        padding: 1rem;
+    }
+
+    .bar {
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+    }
+
+    .board {
+        height: min(62vh, 520px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .overlay,
+    .panel {
+        animation: none;
+    }
+}

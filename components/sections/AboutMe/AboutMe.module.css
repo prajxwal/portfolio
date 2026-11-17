@@ -2,7 +2,7 @@
     height: 100vh;
     height: 100svh;
     width: 100%;
-    background: #000000;
+    background: var(--bg);
     padding: 0 4rem;
     position: relative;
     overflow: hidden;
@@ -40,7 +40,7 @@
 .headerLine {
     flex: 1;
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(var(--fg-rgb), 0.1);
 }
 
 .index {
@@ -100,8 +100,8 @@
     margin-left: -50vw;
     margin-right: -50vw;
     overflow: hidden;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(var(--fg-rgb), 0.1);
+    border-bottom: 1px solid rgba(var(--fg-rgb), 0.1);
     padding: 1.5rem 0;
     flex-shrink: 0;
     margin-top: auto;

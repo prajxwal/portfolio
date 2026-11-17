@@ -2,7 +2,7 @@
     height: 100vh;
     height: 100svh;
     width: 100%;
-    background: #000000;
+    background: var(--bg);
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
 .headerLine {
     flex: 1;
     height: 1px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(var(--fg-rgb), 0.1);
 }
 
 .index {

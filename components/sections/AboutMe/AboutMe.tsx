@@ -138,15 +138,11 @@ export default function AboutMe() {
                         <span className={styles.marqueeDot}>●</span>
                         <span>CREATOR</span>
                         <span className={styles.marqueeDot}>●</span>
-                        <span>FOUNDER</span>
-                        <span className={styles.marqueeDot}>●</span>
                         <span>DEVELOPER</span>
                         <span className={styles.marqueeDot}>●</span>
                         <span>DESIGNER</span>
                         <span className={styles.marqueeDot}>●</span>
                         <span>CREATOR</span>
-                        <span className={styles.marqueeDot}>●</span>
-                        <span>FOUNDER</span>
                         <span className={styles.marqueeDot}>●</span>
                     </div>
                 </div>
